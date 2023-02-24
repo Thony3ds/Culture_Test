@@ -5,4 +5,4 @@ def text_convert(toconvert):
         var = "2"
     else:
         var = "error"
-        return var
+    return var

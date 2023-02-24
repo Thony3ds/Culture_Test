@@ -1,4 +1,1 @@
-todo error a corriger
-File "/home/antho/PycharmProjects/Culture_Test/run_app.py", line 21, in randoniser
-    var2 = var2 + "b"
-TypeError: unsupported operand type(s) for +: 'NoneType' and 'str'
+todo search comment remplacer le text d'un Label

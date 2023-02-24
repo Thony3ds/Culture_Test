@@ -13,6 +13,9 @@ class data():
     answer = ""
     question = "1a"
     buttone0 = False
+    score = 0
+    scoredone = 1
+    thewhile = False
 
 def randoniser():
     var = random.randint(1, 2)
@@ -25,10 +28,14 @@ def randoniser():
     return True
 
 def verify():
+    data.answer_player = inputer0.get()
     if data.answer == data.answer_player:
         print("Good answer")
+        data.score = data.score + data.scoredone
+        start()
     else:
         print("error")
+        print(f"your answer: {data.answer_player}")
 
 def start():
     if data.buttone0 == False:
@@ -37,10 +44,13 @@ def start():
     randoniser()
     question = tk.Label(app, text=JsonReader.readJson(toread=data.question, langue=data.langue, file=data.thetest), bg="black", fg="white", font=Ubuntu)
     question.pack(pady=20)
-    inputer0 = tk.Entry(app, text="Enter the answer", textvariable=data.answer_player, font=Ubuntu)
-    inputer0.pack(pady=20)
+    if data.thewhile != True:
+        global inputer0
+        inputer0 = tk.Entry(app, textvariable="inputer0", font=Ubuntu)
+        inputer0.pack(pady=20)
     button1 = tk.Button(app, text="Send", command=verify, font=Ubuntu)
     button1.pack(pady=20)
+    data.thewhile = True
     app.update()
 
 def appli():
