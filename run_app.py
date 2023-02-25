@@ -42,14 +42,17 @@ def start():
         data.buttone0 = True
         button0.destroy()
     randoniser()
-    question = tk.Label(app, text=JsonReader.readJson(toread=data.question, langue=data.langue, file=data.thetest), bg="black", fg="white", font=Ubuntu)
-    question.pack(pady=20)
     if data.thewhile != True:
+        global question
+        question = tk.Label(app, text=JsonReader.readJson(toread=data.question, langue=data.langue, file=data.thetest), bg="black", fg="white", font=Ubuntu)
+        question.pack(pady=20)
         global inputer0
         inputer0 = tk.Entry(app, textvariable="inputer0", font=Ubuntu)
         inputer0.pack(pady=20)
-    button1 = tk.Button(app, text="Send", command=verify, font=Ubuntu)
-    button1.pack(pady=20)
+        button1 = tk.Button(app, text="Send", command=verify, font=Ubuntu)
+        button1.pack(pady=20)
+    elif data.thewhile == True:
+        question.config(text=JsonReader.readJson(toread=data.question, langue=data.langue, file=data.thetest))
     data.thewhile = True
     app.update()
 
