@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import font
 from assets import JsonReader, NumConvert
-import random, platform
+import random, platform, os, time
 
 app = tk.Tk()
 Ubuntu = font.Font(font="Ubuntu")
@@ -9,6 +9,7 @@ Ubuntu = font.Font(font="Ubuntu")
 class data():
     langue = JsonReader.language_load()
     thetest = "default"
+    maxtest = float(JsonReader.readJson(toread="maxtest", langue=langue, file=thetest))
     answer_player = ""
     answer = ""
     question = "1a"
@@ -24,7 +25,6 @@ def end_test():
     question.destroy(), inputer0.destroy(), button1.destroy(), score_label.destroy(), end_button.destroy()
     label0.config(text="You have finish goodbye !!")
     app.update()
-    import time
     time.sleep(2)
     app.destroy()
 def is_number():
@@ -37,7 +37,7 @@ def is_number():
         return False
 
 def randoniser():
-    var = random.randint(1, 2)
+    var = random.randint(1, float(data.maxtest))
     var = NumConvert.text_convert(var)
     var2 = var
     var2 = var2 + "b"
@@ -89,9 +89,7 @@ def start():
         question.config(text=JsonReader.readJson(toread=data.question, langue=data.langue, file=data.thetest))
     if data.objectif_score != data.score:
         data.thewhile = True
-        print(f"not objectif {data.score} / {data.objectif_score}")
     elif data.score == data.objectif_score:
-        print("object good")
         data.thewhile = False
         end_test()
     app.update()
@@ -116,5 +114,70 @@ def appli():
 
     app.mainloop()
 
+class TerminalCommand():
+
+    def whileSession(self):
+        running = True
+        while running:
+            command = input("Culture_Test/terminal: ")
+            if command == "help":
+                print("please see: 'assets/other/help_terminal.txt' for all commands")
+            elif command == "run":
+                running = False
+                print("Start Culture_Test....")
+            elif command == "autorun":
+                autorun = input("please chose your autorun mod True/False: ")
+                if autorun != "True" and autorun != "False":
+                    print(f"error on the answer: {autorun}")
+                else:
+                    file = open("assets/terminal_assets/autostart.txt", "w")
+                    file.write(autorun)
+                    file.close()
+                    print(f"finish to change the autorun's mod with {autorun} mod")
+                    if autorun == "True":
+                        print("for start use 'run' command :)")
+            elif command == "lang":
+                lang = input("Chose your language/Choisis ta langue english/frensh: ")
+                if lang == "english" or lang == "frensh":
+                    file = open("assets/jsons/langue.txt", "w")
+                    file.write(lang)
+                    file.close()
+                    print(f"pass to {lang} mod succefuly !! (you need to restart the app to have {lang} mod)")
+                else:
+                    print(f"error !! no find {lang} on language packages.")
+            elif command == "test":
+                test = input("entry the name of the test: ")
+                test2 = test + ".json"
+                if os.path.exists(f"assets/jsons/{data.langue}/{test2}") == True:
+                    print(f"change test file to {test} test")
+                    data.thetest = test
+                    data.maxtest = float(JsonReader.readJson(toread="maxtest", langue=data.langue, file=data.thetest))
+                else:
+                    print(f"error no found {test} file")
+            else:
+                print(f"error we can read the command {command} please write 'help' to receved some help")
+
+    def startSession(self):
+        print("initalisation....")
+        print("Welcome !!")
+        if os.path.exists(path="assets/terminal_assets/autostart.txt") == True:
+            file = open("assets/terminal_assets/autostart.txt", "r")
+            infile = file.readlines()
+            file.close()
+            if infile == ['True']:
+                return True
+            elif infile == ['False']:
+                print("starting terminal....")
+                TerminalCommand.whileSession(self=self)
+            else:
+                print("Error on file system")
+                print(f"the system return: {infile}")
+        else:
+            file = open("assets/terminal_assets/autostart.txt", "w+")
+            file.write("False")
+            file.close()
+            TerminalCommand.startSession(self=self)
+
 if __name__ == "__main__":
+    TerminalCommand.startSession(self="self")
     appli()

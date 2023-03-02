@@ -1,0 +1,5 @@
+help    to have some help
+run     start culture test app
+autorun     def start automatic (without terminal)
+lang       change the language
+test        change the test to do
