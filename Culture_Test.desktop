@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Culture_Test
-Comment=Test you with test of your creation or already create
-Exec=/your_path/Culture_Test/run.py
-Icon=/your_path/Culture_Test/assets/logo/logo.svg
-Terminal=false
-Type=Application
-Categories=Divertisment;
