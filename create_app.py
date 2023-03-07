@@ -41,10 +41,10 @@ def finalising():
 def craft_question():
     entry_var = inputer0.get()
     exit_var = inputer1.get()
-    data.towrite = data.towrite + f' "{entry_var}": "{exit_var}",'
+    data.size = data.size + 1
+    data.towrite = data.towrite + f' "{data.size}a": "{entry_var}", "{data.size}b": "{exit_var}",'
     inputer0.delete(0, 'end')
     inputer1.delete(0, 'end')
-    data.size = data.size + 1
 
 def start():
     button0.destroy()
