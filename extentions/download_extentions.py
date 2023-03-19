@@ -1,4 +1,5 @@
 import os, shutil
+from git import Repo
 
 def exctraction():
     print("start....")
@@ -18,4 +19,8 @@ def exctraction():
         print("Error")
 
 if __name__ == "__main__":
+    repo_url = "https://github.com/Thony3ds/Culture_Test_Extentions"
+    repo_dir = os.path.dirname(os.path.abspath(__file__)) + "/Culture_Test_Extentions"
+    Repo.clone_from(repo_url, repo_dir)
+    print("File found and download. Extracting....")
     exctraction()
